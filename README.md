@@ -2,8 +2,11 @@
 
 Check and open the git url in the default web browser.
 
-The plugin grabs the output of `git ls-remote --get-url`, checks if ssh or plain http and opens in the browser.  
-Should work with any git hoster (codeberg, github, local hosted, ...)
+The plugin grabs the output of `git ls-remote --get-url` in the current workdir,  
+checks if ssh or plain http, reformats if necessary and opens the URL in the browser.  
+Should work with any git hoster (codeberg, github, self hosted, ...).
+
+If the current workdir is not a git repo, it only prints a message.
 
 ## Installation
 
