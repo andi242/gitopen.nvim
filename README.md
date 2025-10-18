@@ -8,7 +8,7 @@ Check and open the git url in the default web browser.
 
 ```lua
 return {
-  'andi242/gitopen.nvim'
+  'andi242/gitopen.nvim',
   event = "VeryLazy",
   config = function()
     require('gitopen').setup()
