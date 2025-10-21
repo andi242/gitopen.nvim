@@ -46,24 +46,24 @@ local function checkEnv()
 	else
 		cmd = "xdg-open"
 	end
-  return cmd
+	return cmd
 end
 
 -- open url handling
 local function openUrl(url)
 	print("opening https://" .. url)
-  local cmd = checkEnv()
+	local cmd = checkEnv()
 	vim.fn.system(cmd .. " https://" .. url)
 end
 
 function M.setup(opts)
 	-- not using any for now
 	GitopenOpts = opts or {}
-  local cmd = checkEnv()
-  local checkcmd = assert(vim.fn.executable(cmd) == 1, "command '" .. cmd .."' is unavailable.")
-  if not checkcmd then
-    print(checkcmd)
-  end
+	local cmd = checkEnv()
+	local checkcmd = assert(vim.fn.executable(cmd) == 1, "command '" .. cmd .. "' is unavailable.")
+	if not checkcmd then
+		print(checkcmd)
+	end
 end
 
 function M.open()
@@ -71,7 +71,7 @@ function M.open()
 	if giturl then
 		openUrl(giturl)
 	else
-		print( vim.fn.getcwd(0, 0) .. " is not a git repo.")
+		print(vim.fn.getcwd(0, 0) .. " is not a git repo.")
 		return
 	end
 end
