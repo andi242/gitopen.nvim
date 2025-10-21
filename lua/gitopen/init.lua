@@ -1,5 +1,5 @@
 local M = {}
-Opts = {}
+GitopenOpts = {}
 
 -- splitting strings
 local function split(inputstr, sep)
@@ -36,8 +36,8 @@ local function getWebUrl()
 	end
 end
 
--- open url handling
-local function openUrl(url)
+-- check host exec env
+local function checkEnv()
 	local cmd
 	if vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1 then
 		cmd = "start"
@@ -46,13 +46,24 @@ local function openUrl(url)
 	else
 		cmd = "xdg-open"
 	end
+  return cmd
+end
+
+-- open url handling
+local function openUrl(url)
 	print("opening https://" .. url)
+  local cmd = checkEnv()
 	vim.fn.system(cmd .. " https://" .. url)
 end
 
 function M.setup(opts)
 	-- not using any for now
-	Opts = opts or {}
+	GitopenOpts = opts or {}
+  local cmd = checkEnv()
+  local checkcmd = assert(vim.fn.executable(cmd) == 1, "command '" .. cmd .."' is unavailable.")
+  if not checkcmd then
+    print(checkcmd)
+  end
 end
 
 function M.open()
@@ -60,7 +71,7 @@ function M.open()
 	if giturl then
 		openUrl(giturl)
 	else
-		print("not a git repo.")
+		print( vim.fn.getcwd(0, 0) .. " is not a git repo.")
 		return
 	end
 end
