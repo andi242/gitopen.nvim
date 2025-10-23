@@ -23,7 +23,7 @@ local function getWebUrl()
 		if string.find(gitUri, "@") then
 			local urlArr = split(gitUri, "@")
 			url = urlArr[2]:gsub(":(%d+)/", "/")
-			url = url:gsub(":", "/")
+			url = "https://" .. url:gsub(":", "/")
 		-- how to strip '.git'? or just ignore?
 		-- url = url.gsub('%.git$', '') -- does not work?
 		-- url = url:sub(0, -6) -- works, but unsafe
@@ -51,9 +51,9 @@ end
 
 -- open url handling
 local function openUrl(url)
-	print("opening https://" .. url)
+	print("opening " .. url)
 	local cmd = checkEnv()
-	vim.fn.system(cmd .. " https://" .. url)
+	vim.fn.system(cmd .. " " .. url)
 end
 
 function M.setup(opts)
